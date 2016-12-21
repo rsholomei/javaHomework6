@@ -14,10 +14,10 @@ public class Test {
         System.out.println(CollectionUtils.map(listInteger, (a) -> a * 2));
         System.out.println(CollectionUtils.max(listInteger, Integer::compareTo));
         System.out.println(CollectionUtils.min(listInteger, Integer::compareTo));
-        System.out.println(CollectionUtils.distinct(listInteger));
+        System.out.println(CollectionUtils.distinct(listString));
         CollectionUtils.forEach(listInteger, System.out::println);
         System.out.println(CollectionUtils.reduce(listInteger, Integer::sum));
-        System.out.println(CollectionUtils.reduce(" " , listString, (s, s2) -> s + s2));
+        System.out.println(CollectionUtils.reduce(10 , listInteger, (s, s2) -> s + s2));
         System.out.println(CollectionUtils.partitionBy(listInteger, (a) -> a % 2 == 0));
         System.out.println(CollectionUtils.groupBy(listString, (s) -> s.substring(0)));
         System.out.println(CollectionUtils.toMap(listString, s -> s.substring(0), s -> s.length(), (count, s) -> count + s));

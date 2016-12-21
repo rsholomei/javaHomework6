@@ -93,16 +93,13 @@ public class CollectionUtils {
     }
 
 
-    public static <E> List<E> distinct(List<E> elements) {
-        List<E> list = new ArrayList<>();
+    public static <E> Set<E> distinct(List<E> elements) {
+        Set<E> set = new HashSet<>();
         for (E element : elements)
         {
-            if (!list.contains(element))
-            {
-                list.add(element);
-            }
+            set.add(element);
         }
-        return list;
+        return set;
     }
 
 
@@ -129,16 +126,12 @@ public class CollectionUtils {
 
 
     public static <E> E reduce(E seed, List<E> elements, BinaryOperator<E> accumulator) {
-        if (elements.size() != 0)
+        E result = seed;
+        for (E element : elements)
         {
-            E element = elements.get(0);
-            for (int i = 1; i < elements.size(); i++)
-            {
-                element = accumulator.apply(element, elements.get(i));
-            }
-            return element;
+            result = accumulator.apply(result, element);
         }
-        else return null;
+        return result;
     }
 
 
@@ -164,9 +157,9 @@ public class CollectionUtils {
         Map<K,List<T>> map = new HashMap<>();
         for(T element:elements) {
             K key = classifier.apply(element);
-            if (map.containsKey(key))
+            if (map.containsKey(key)){
                 map.get(key).add(element);
-            else {
+            }else {
                 ArrayList<T> list = new ArrayList<>();
                 list.add(element);
                 map.put(key, list);
@@ -186,10 +179,11 @@ public class CollectionUtils {
         for(T element:elements){
             key=keyFunction.apply(element);
             value=valueFunction.apply(element);
-            if(map.containsKey(key))
-                map.put(key,mergeFunction.apply(map.get(key),value));
-            else
+            if(map.containsKey(key)) {
+                map.put(key, mergeFunction.apply(map.get(key), value));
+            }else{
                 map.put(key,value);
+            }
         }
         return map;
     }
